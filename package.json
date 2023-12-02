@@ -1,0 +1,20 @@
+{
+  "name": "adventofcodejavascript",
+  "version": "1.2.2",
+  "description": "Advent of Code with JavaScript",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OskarBrzeski/AdventOfCodeJavascript.git"
+  },
+  "author": "Oskar Brzeski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OskarBrzeski/AdventOfCodeJavascript/issues"
+  },
+  "homepage": "https://github.com/OskarBrzeski/AdventOfCodeJavascript#readme"
+}

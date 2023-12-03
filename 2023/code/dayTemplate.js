@@ -9,7 +9,7 @@ export function solution() {
 
 function parts(fileData) {
     const lines = fileData.split("\n");
-    console.log(`Day1: ${part1(lines)} | ${part2(lines)}`)
+    console.log(`Day3: ${part1(lines)} | ${part2(lines)}`)
 }
 
 function part1(lines) {

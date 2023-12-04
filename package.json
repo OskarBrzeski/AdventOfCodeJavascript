@@ -1,6 +1,6 @@
 {
   "name": "adventofcodejavascript",
-  "version": "1.3.2",
+  "version": "1.4.2",
   "description": "Advent of Code with JavaScript",
   "main": "index.js",
   "type": "module",

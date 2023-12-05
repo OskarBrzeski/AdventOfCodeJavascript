@@ -13,7 +13,8 @@ function parts(fileData) {
 }
 
 function part1(lines) {
-    const [seeds, maps] = parseFile(lines);
+    const seeds = parseSeeds(lines[0]);
+    const maps = parseMaps(lines);
 
     let lowest = Infinity;
 
@@ -35,12 +36,32 @@ function part1(lines) {
 }
 
 function part2(lines) {
+    const seedRanges = parseSeedRanges(lines[0]);
+    const maps = parseMaps(lines);
+    
     return 0;
 }
 
-function parseFile(lines) {
-    const seeds = lines[0].split(": ")[1].split(" ").map(Number);
-    
+function parseSeeds(line) {
+    return line.split(": ")[1].split(" ").map(Number);
+}
+
+function parseSeedRanges(line) {
+    line = line.split(": ")[1].split(" ");
+
+    const seedRanges = [];
+    for (let i = 0; i < line.length; i++) {
+        if (i % 2 === 0) {
+            seedRanges.push({ start: Number(line[i]) });
+        } else {
+            seedRanges[seedRanges.length-1].amount = Number(line[i]);
+        }
+    }
+
+    return seedRanges;
+}
+
+function parseMaps(lines) {
     const maps = [];
     for (let line of lines.slice(1)) {
         if (line === "") {maps.push([]); continue;}
@@ -54,5 +75,5 @@ function parseFile(lines) {
         } );
     }
 
-    return [seeds, maps]
+    return maps
 }

@@ -42,9 +42,6 @@ function part2(lines) {
     sortSeedRanges(seedRanges);
     sortMaps(maps);
 
-    console.log(seedRanges);
-    console.log(maps[0]);
-
     maps.reverse();
 
     for (let i = 0; i < 100000000; i++) {

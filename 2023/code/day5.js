@@ -38,8 +38,42 @@ function part1(lines) {
 function part2(lines) {
     const seedRanges = parseSeedRanges(lines[0]);
     const maps = parseMaps(lines);
-    
+
+    sortSeedRanges(seedRanges);
+    sortMaps(maps);
+
+    console.log(seedRanges);
+    console.log(maps[0]);
+
+    maps.reverse();
+
+    for (let i = 0; i < 100000000; i++) {
+        let currentValue = i;
+        for (let mapGroup of maps) {
+            for (let map of mapGroup) {
+                if (currentValue >= map.destination && currentValue < map.destination + map.amount) {
+                    currentValue = map.source + currentValue - map.destination;
+                    break;
+                }
+            }
+        }
+
+        for (let seedRange of seedRanges) {
+            if (currentValue >= seedRange.start && currentValue < seedRange.start + seedRange.amount) {return i;}
+        }
+    }
+
     return 0;
+}
+
+function sortSeedRanges(seedRanges) {
+    seedRanges.sort((x, y) => x.start < y.start ? -1 : x.start > y.start ? 1 : 0);
+}
+
+function sortMaps(maps) {
+    for (let map of maps) {
+        map.sort((x, y) => x.source < y.source ? -1 : x.source > y.source ? 1 : 0);
+    }
 }
 
 function parseSeeds(line) {
@@ -50,12 +84,11 @@ function parseSeedRanges(line) {
     line = line.split(": ")[1].split(" ");
 
     const seedRanges = [];
-    for (let i = 0; i < line.length; i++) {
-        if (i % 2 === 0) {
-            seedRanges.push({ start: Number(line[i]) });
-        } else {
-            seedRanges[seedRanges.length-1].amount = Number(line[i]);
-        }
+    for (let i = 0; i < line.length; i+=2) {
+        seedRanges.push( {
+            start: Number(line[i]),
+            amount: Number(line[i+1]),
+        } )
     }
 
     return seedRanges;

@@ -25,7 +25,15 @@ function part1(lines) {
 }
 
 function part2(lines) {
-    return 0;
+    const hands = parseInput(lines);
+    hands.sort((x, y) => compareHandsPart2(x.hand, y.hand));
+    
+    let result = 0;
+    for (let i = 0; i < hands.length; i++) {
+        result += hands[i].bid * (i+1);
+    }
+    
+    return result;
 }
 
 function parseInput(lines) {
@@ -66,7 +74,6 @@ function getRank(hand) {
 
 function compareHands(hand1, hand2) {
     if (getRank(hand1) === getRank(hand2)) {
-        const zip = (a, b) => a.map((k, i) => [k, b[i]]);
 
         const cardOrder = "AKQJT98765432";
         for (let i = 0; i < 5; i++) {
@@ -78,4 +85,48 @@ function compareHands(hand1, hand2) {
     }
 
     return getRank(hand1) < getRank(hand2) ? -1 : 1;
+}
+
+function getRankPart2(hand) {
+    const cards = {};
+    let jokers = 0;
+    for (let card of hand) {
+        if (card === "J") {jokers += 1; continue;}
+        if (cards[card] === undefined) {cards[card] = 1;}
+        else {cards[card] += 1;}
+    }
+
+    let amounts = [];
+    for (let key in cards) {
+        amounts.push(cards[key]);
+    }
+    amounts.sort();
+    if (amounts.length === 0) {amounts.push(5)}
+    else {amounts[amounts.length-1] += jokers;}
+    amounts = amounts.toString();
+
+    return (
+        amounts === "5" ? 7 :
+        amounts === "1,4" ? 6 :
+        amounts === "2,3" ? 5 :
+        amounts === "1,1,3" ? 4 :
+        amounts === "1,2,2" ? 3 :
+        amounts === "1,1,1,2" ? 2 :
+        1
+    );
+}
+
+function compareHandsPart2(hand1, hand2) {
+    if (getRankPart2(hand1) === getRankPart2(hand2)) {
+
+        const cardOrder = "AKQT98765432J";
+        for (let i = 0; i < 5; i++) {
+            if (cardOrder.indexOf(hand1[i]) > cardOrder.indexOf(hand2[i])) {return -1;}
+            else if (cardOrder.indexOf(hand1[i]) < cardOrder.indexOf(hand2[i])) {return 1;}
+        }
+
+        return 0;
+    }
+
+    return getRankPart2(hand1) < getRankPart2(hand2) ? -1 : 1;
 }

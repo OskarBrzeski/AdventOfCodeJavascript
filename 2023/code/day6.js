@@ -13,7 +13,7 @@ function parts(fileData) {
 }
 
 function part1(lines) {
-    const races = parseInput(lines);
+    const races = getRaces(lines);
     
     let result = 1;
 
@@ -33,10 +33,18 @@ function part1(lines) {
 }
 
 function part2(lines) {
+    const race = getRace(lines);
+    
+    for (let i = 0; i < race.time; i++) {
+        if (i * (race.time - i) > race.distance) {
+            return race.time - 2 * i + 1;
+        }
+    }
+
     return 0;
 }
 
-function parseInput(lines) {
+function getRaces(lines) {
     const zip = (a, b) => a.map((k, i) => [k, b[i]]);
 
     const times = [];
@@ -60,4 +68,23 @@ function parseInput(lines) {
     }
 
     return races;
+}
+
+function getRace(lines) {
+    let time = "";
+    for (let char of lines[0].split(":")[1]) {
+        if (char === " ") {continue;}
+        time += char;
+    }
+
+    let distance = "";
+    for (let char of lines[1].split(":")[1]) {
+        if (char === " ") {continue;}
+        distance += char;
+    }
+
+    return {
+        time: Number(time),
+        distance: Number(distance),
+    };
 }

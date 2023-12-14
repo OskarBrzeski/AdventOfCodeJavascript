@@ -34,19 +34,46 @@ function part2(lines) {
     const currentNodes = getStartingNodes(nodes);
     let count = 0;
 
+    let occurances = [];
+    for (let _ of currentNodes) {
+        occurances.push([]);
+    }
+
     while (true) {
         for (let char of instructions) {
+            count++;
+
             for (let i = 0; i < currentNodes.length; i++) {
                 currentNodes[i] = nodes[currentNodes[i]][Number(char === "R")];
+                if (currentNodes[i].endsWith("Z")) {occurances[i].push(count);}
             }
 
-            count++;
-            if (count % 1000000 === 0) {console.log(count);}
+            if (count > 100000) {
+                let cycles = [];
+                for (let i = 0; i < currentNodes.length; i++) {
+                    cycles.push(occurances[i][1] - occurances[i][0]);
+                }
+                return cycles.reduce(lowestCommonMultiple, 1);
+            }
+
             if (areEndingNodes(currentNodes)) {return count;}
         }
     }
+}
 
-    return 0;
+function lowestCommonMultiple(left, right) {
+    let first = left;
+    let second = right;
+
+    while (first !== second) {
+        if (first < second) {
+            first +=left;
+        } else {
+            second += right;
+        }
+    }
+
+    return first;
 }
 
 function parseInput(lines) {

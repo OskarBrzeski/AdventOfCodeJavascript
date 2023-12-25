@@ -8,6 +8,7 @@ import { solution as day7 } from "./2023/code/day7.js";
 import { solution as day8 } from "./2023/code/day8.js";
 import { solution as day9 } from "./2023/code/day9.js";
 import { solution as day10 } from "./2023/code/day10.js";
+import { solution as day11 } from "./2023/code/day11.js";
 
 function main() {
     day1();
@@ -20,6 +21,7 @@ function main() {
     // day8();
     day9();
     day10();
+    day11();
 }
 
 main();

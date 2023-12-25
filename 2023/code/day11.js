@@ -1,10 +1,8 @@
 import * as fs from "fs";
 
 export function solution() {
-    fs.readFile("2023/data/day11.txt", "utf8", (err, data) => {
-        if (err) throw err;
-        parts(data);
-    });
+    let data = fs.readFileSync("2023/data/day11.txt", "utf8");
+    parts(data);
 }
 
 function parts(fileData) {
@@ -34,8 +32,6 @@ function part2(lines) {
     const emptyRows = findEmptyRows(lines);
     const emptyColumns = findEmptyColumns(lines);
     const galaxies = findGalaxies(lines);
-
-    console.log(emptyRows, emptyColumns)
 
     let result = 0;
     let dx, dy;

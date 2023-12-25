@@ -1,10 +1,8 @@
 import * as fs from "fs";
 
 export function solution() {
-    fs.readFile("2023/data/day2.txt", "utf8", (err, data) => {
-        if (err) throw err;
-        parts(data);
-    });
+    let data = fs.readFileSync("2023/data/day2.txt", "utf8");
+    parts(data);
 }
 
 function parts(fileData) {
